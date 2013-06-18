@@ -1,0 +1,54 @@
+// GRID SYSTEM
+// --------------------------------------------------
+@include grid-core($gridColumnWidth, $gridGutterWidth);
+
+// Reverse float spans
+.reverse > [class*="span"] {
+  float: right
+}
+
+// RESPONSIVE: Large desktop and up
+// --------------------------------------------------
+@include break(wide) {
+  @include grid-core($gridColumnWidth1200, $gridGutterWidth1200);
+}
+
+// RESPONSIVE: Tablet to desktop
+// --------------------------------------------------
+@include break(tablet) {
+  @include grid-core($gridColumnWidth768, $gridGutterWidth768);
+}
+
+// RESPONSIVE: Landscape phone to desktop/tablet
+// --------------------------------------------------
+@include break(mobile) {
+
+  // Padding to set content in a bit
+  body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  // GRID & CONTAINERS
+  // -----------------
+  // Remove width from containers
+  .container {
+    width: auto;
+  }
+  // Undo negative margin on rows and thumbnails
+  .row {
+    margin-left: 0;
+  }
+
+  // Make all grid-sized elements block level again
+  [class*="span"] {
+    float: none;
+    display: block;
+    width: 100%;
+    margin-left: 0;
+  }
+  .span12 {
+    width: 100%;
+  }
+
+}

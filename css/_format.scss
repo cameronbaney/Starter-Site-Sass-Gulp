@@ -1,0 +1,55 @@
+body {
+  color: $grayDark;
+  font-family: $baseFontFamily;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
+  margin: 0;
+}
+a {
+  color: $linkColor;
+  text-decoration: none;
+  &:hover {
+    color: $linkColorHover;
+  }
+}
+
+strong  { font-weight: bold; }
+em      { font-style: italic; }
+cite    { font-style: normal; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: ($baseLineHeight / 2) 0;
+  font-family: $headingsFontFamily;
+  font-weight: $headingsFontWeight;
+  line-height: $baseLineHeight;
+  color: $headingsColor;
+  text-rendering: optimizelegibility; // Fix the character spacing for headings
+}
+h1,
+h2,
+h3 { line-height: $baseLineHeight * 2; }
+
+h1 { font-size: $baseFontSize * 2.75; } // ~38px
+h2 { font-size: $baseFontSize * 2.25; } // ~32px
+h3 { font-size: $baseFontSize * 1.75; } // ~24px
+h4 { font-size: $baseFontSize * 1.25; } // ~18px
+h5 { font-size: $baseFontSize; }
+h6 { font-size: $baseFontSize * 0.85; } // ~12px
+
+p, ul {
+  margin: 0 0 $baseLineHeight / 2;
+}
+
+// No transitions while loading
+.loading * {
+  transition: none;
+  -moz-transition: none;
+  -webkit-transition: none;
+}
+
+// Transition placeholder
+%trans {
+  transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+}
