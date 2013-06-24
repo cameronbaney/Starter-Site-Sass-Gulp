@@ -6,6 +6,11 @@
 .reverse > [class*="span"] {
   float: right
 }
+.container {
+  @extend .cf;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 // RESPONSIVE: Large desktop and up
 // --------------------------------------------------
