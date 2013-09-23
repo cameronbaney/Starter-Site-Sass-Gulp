@@ -1,75 +1,168 @@
-// CLEARFIX
-// --------------------------------------------------
-@mixin clearfix {
-  *zoom: 1;
+// Utilities
+// -------------------------
+
+// Clearfix
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    contenteditable attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+@mixin clearfix() {
   &:before,
   &:after {
-    display: table;
-    content: "";
-    // Fixes Opera/contenteditable bug:
-    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
-    line-height: 0;
+    content: " "; /* 1 */
+    display: table; /* 2 */
   }
   &:after {
     clear: both;
   }
 }
 
-// GRID
-// --------------------------------------------------
-@mixin grid-core($gridColumnWidth, $gridGutterWidth) {
-  .row {
-    margin-left: $gridGutterWidth * -1;
-    @include clearfix();
-  }
+// Grid System
+// -----------
 
-  [class*="span"] {
+// Centered container element
+@mixin container-fixed() {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left:  ($grid-gutter-width / 2);
+  padding-right: ($grid-gutter-width / 2);
+  @include clearfix();
+}
+
+// Creates a wrapper for a series of columns
+@mixin make-row($gutter: $grid-gutter-width) {
+  margin-left:  ($gutter / -2);
+  margin-right: ($gutter / -2);
+  @include clearfix();
+}
+
+// Generate the extra small columns
+@mixin make-xs-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  float: left;
+  width: percentage(($columns / $grid-columns));
+  // Prevent columns from collapsing when empty
+  min-height: 1px;
+  // Inner gutter via padding
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+}
+
+// Generate the small columns
+@mixin make-sm-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  // Prevent columns from collapsing when empty
+  min-height: 1px;
+  // Inner gutter via padding
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  // Calculate width based on number of columns available
+  @media (min-width: $screen-sm) {
     float: left;
-    min-height: 1px; // prevent collapsing columns
-    margin-left: $gridGutterWidth;
-  }
-
-  // Set the container width, and override it for fixed navbars in media queries
-  .container {
-    @include grid-core-span($gridColumns, $gridColumnWidth, $gridGutterWidth);
-  }
-
-  // generate .spanX and .offsetX
-  @include grid-core-span-x($gridColumns, $gridColumnWidth, $gridGutterWidth);
-  @include grid-core-offset-x($gridColumns, $gridColumnWidth, $gridGutterWidth);
-}
-
-@mixin grid-core-span-x($gridColumns, $gridColumnWidth, $gridGutterWidth) {
-  @for $i from 1 through $gridColumns {
-    .span#{$i} { @include grid-core-span($i, $gridColumnWidth, $gridGutterWidth); }
+    width: percentage(($columns / $grid-columns));
   }
 }
 
-@mixin grid-core-offset-x($gridColumns, $gridColumnWidth, $gridGutterWidth) {
-  @for $i from 1 through $gridColumns {
-    .offset#{$i} { @include grid-core-offset($i, $gridColumnWidth, $gridGutterWidth); }
+// Generate the small column offsets
+@mixin make-sm-column-offset($columns) {
+  @media (min-width: $screen-sm) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column-push($columns) {
+  @media (min-width: $screen-sm) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-sm-column-pull($columns) {
+  @media (min-width: $screen-sm) {
+    right: percentage(($columns / $grid-columns));
   }
 }
 
-@mixin grid-core-span($columns, $gridColumnWidth, $gridGutterWidth) {
-  width: ($gridColumnWidth * $columns) + ($gridGutterWidth * ($columns - 1));
+// Generate the medium columns
+@mixin make-md-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  // Prevent columns from collapsing when empty
+  min-height: 1px;
+  // Inner gutter via padding
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  // Calculate width based on number of columns available
+  @media (min-width: $screen-md) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
 }
 
-@mixin grid-core-offset($columns, $gridColumnWidth, $gridGutterWidth) {
-  margin-left: ($gridColumnWidth * $columns) + ($gridGutterWidth * ($columns + 1));
+// Generate the large column offsets
+@mixin make-md-column-offset($columns) {
+  @media (min-width: $screen-md) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column-push($columns) {
+  @media (min-width: $screen-md) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-md-column-pull($columns) {
+  @media (min-width: $screen-md) {
+    right: percentage(($columns / $grid-columns));
+  }
+}
+
+// Generate the large columns
+@mixin make-lg-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  // Prevent columns from collapsing when empty
+  min-height: 1px;
+  // Inner gutter via padding
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  // Calculate width based on number of columns available
+  @media (min-width: $screen-lg) {
+    float: left;
+    width: percentage(($columns / $grid-columns));
+  }
+}
+
+// Generate the large column offsets
+@mixin make-lg-column-offset($columns) {
+  @media (min-width: $screen-lg) {
+    margin-left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column-push($columns) {
+  @media (min-width: $screen-lg) {
+    left: percentage(($columns / $grid-columns));
+  }
+}
+@mixin make-lg-column-pull($columns) {
+  @media (min-width: $screen-lg) {
+    right: percentage(($columns / $grid-columns));
+  }
 }
 
 // RESPONSIVE BREAKPOINTS
 // --------------------------------------------------
 @mixin break($media) {
-  @if $media == mobile {
-    @media (max-width: 767px) { @content; }
+  @if $media == tablet {
+    @media (min-width: $screen-tablet) { @content; }
   }
-  @else if $media == tablet {
-    @media (min-width: 768px) and (max-width: 979px) { @content; }
+  @else if $media == desktop {
+    @media (min-width: $screen-desktop) { @content; }
   }
-  @else if $media == wide {
-    @media only screen and (min-width: 1200px) { @content; }
+  @else if $media == lg-desktop {
+    @media (min-width: $screen-lg-desktop) { @content; }
   }
   @else if $media == hdpi {
     @media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { @content; }

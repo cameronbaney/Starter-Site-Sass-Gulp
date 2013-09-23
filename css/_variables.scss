@@ -1,23 +1,3 @@
-// GRID
-// --------------------------------------------------
-
-// Default 940px grid
-// -------------------------
-$gridColumns:             12 !default;
-$gridColumnWidth:         60px !default;
-$gridGutterWidth:         20px !default;
-$gridRowWidth:            ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1)) !default;
-
-// 1200px min
-$gridColumnWidth1200:     70px !default;
-$gridGutterWidth1200:     30px !default;
-$gridRowWidth1200:        ($gridColumns * $gridColumnWidth1200) + ($gridGutterWidth1200 * ($gridColumns - 1)) !default;
-
-// 768px-979px
-$gridColumnWidth768:      42px !default;
-$gridGutterWidth768:      20px !default;
-$gridRowWidth768:         ($gridColumns * $gridColumnWidth768) + ($gridGutterWidth768 * ($gridColumns - 1)) !default;
-
 // COLORS
 // -------------------------
 $white:									#fff !default;
@@ -46,3 +26,49 @@ $baseLineHeight:        23px !default;
 $headingsFontFamily:    inherit !default;
 $headingsFontWeight:    bold !default;
 $headingsColor:         inherit !default;
+
+// MEDIA QUERIES BREAKPOINTS
+// --------------------------------------------------
+
+// Extra small screen / phone
+$screen-xs:                  480px !default;
+$screen-phone:               $screen-xs !default;
+
+// Small screen / tablet
+$screen-sm:                  768px !default;
+$screen-tablet:              $screen-sm !default;
+
+// Medium screen / desktop
+$screen-md:                  992px !default;
+$screen-desktop:             $screen-md !default;
+
+// Large screen / wide desktop
+$screen-lg:                  1200px !default;
+$screen-lg-desktop:          $screen-lg !default;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max:              ($screen-sm - 1) !default;
+$screen-sm-max:              ($screen-md - 1) !default;
+$screen-md-max:              ($screen-lg - 1) !default;
+
+// Grid system
+// --------------------------------------------------
+
+// Number of columns in the grid system
+$grid-columns:              12 !default;
+// Padding, to be divided by two and applied to the left and right of all columns
+$grid-gutter-width:         30px !default;
+// Point at which the navbar stops collapsing
+$grid-float-breakpoint:     $screen-tablet !default;
+
+// Container sizes
+// --------------------------------------------------
+
+// Small screen / tablet
+$container-tablet:            ((720px + $grid-gutter-width)) !default;
+
+// Medium screen / desktop
+$container-desktop:           ((940px + $grid-gutter-width)) !default;
+
+// Large screen / wide desktop
+$container-lg-desktop:        ((1140px + $grid-gutter-width)) !default;
