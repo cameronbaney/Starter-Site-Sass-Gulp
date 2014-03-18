@@ -42,9 +42,7 @@ p, ul {
 
 // No transitions while loading
 .loading * {
-  transition: none;
-  -moz-transition: none;
-  -webkit-transition: none;
+  @include transition(none);
 }
 
 // Transition placeholder
