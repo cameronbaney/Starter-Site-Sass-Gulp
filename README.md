@@ -2,9 +2,18 @@
 
 Basic starter site with responsive breakpoints, using a modified Twitter Bootstrap grid
 
-## Version 2
+## Changelog
 
-Updated to the Bootstrap 3 grid. Read the [documentation](http://getbootstrap.com/css/#grid) for grid classes.
+### Version 2.1
+
++ Modify responsive breakpoints to offer mobile first and standard breakpoints
++ Adjust base typography
++ Add transition variables and use of bourbon for base transitions
++ Add textToImg placeholder for image heading backgrounds
+
+### Version 2.0
+
++ Updated to the Bootstrap 3 grid. Read the [documentation](http://getbootstrap.com/css/#grid) for grid classes.
 
 ## Breakpoint variables
 
