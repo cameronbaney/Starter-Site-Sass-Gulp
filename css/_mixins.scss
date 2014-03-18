@@ -155,16 +155,40 @@
 // RESPONSIVE BREAKPOINTS
 // --------------------------------------------------
 @mixin break($media) {
-  @if $media == tablet {
+  @if $media == small {
+    @media (max-width: 767px) { @content; }
+  }
+  @else if $media == medium {
+    @media (min-width: 768px) and (max-width: 979px) { @content; }
+    @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {@content;}
+  }
+  @else if $media == mediumLand {
+    @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {@content;}
+  }
+  @else if $media == mediumPort {
+    @media (min-width: 768px) and (max-width: 979px) { @content; }
+  }
+  @else if $media == wide {
+    @media only screen and (min-width: $screen-lg-desktop) { @content; }
+  }
+  @else {
+    @media (min-width: $media) { @content; }
+  }
+}
+
+// MOBILE FIRST RESPONSIVE BREAKPOINTS
+// --------------------------------------------------
+@mixin breakFirst($media) {
+  @if $media == medium {
     @media (min-width: $screen-tablet) { @content; }
   }
-  @else if $media == desktop {
+  @else if $media == large {
     @media (min-width: $screen-desktop) { @content; }
   }
-  @else if $media == lg-desktop {
+  @else if $media == wide {
     @media (min-width: $screen-lg-desktop) { @content; }
   }
-  @else if $media == hdpi {
-    @media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { @content; }
+  @else {
+    @media (min-width: $media) { @content; }
   }
 }
