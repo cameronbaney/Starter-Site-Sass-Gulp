@@ -15,6 +15,11 @@ $textColor:             $grayDark !default;
 $linkColor:             $blue !default;
 $linkColorHover:        darken($linkColor, 15%) !default;
 
+// Transitions
+// -------------------------
+$cbTrans: 							cubic-bezier(0.165, 0.84, 0.44, 1);
+$pageTrans: 						cubic-bezier(.54,.06,.55,.97);
+
 // TYPOGRAPHY
 // -------------------------
 $fontFamily:						"Helvetica Neue", Helvetica, Arial, sans-serif !default;
