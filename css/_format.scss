@@ -54,6 +54,13 @@ p, ul {
   -webkit-transition: all 0.4s ease-in-out;
 }
 
+// Hide the text and show an image
+%textToImg {
+  display: block;
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
 // Hide only visually, but have it available for screenreaders: h5bp.com
 .visuallyhidden {
   border: 0;
