@@ -1,4 +1,4 @@
-# Responsive Starter Site with SASS
+# Responsive Starter Site with Sass
 
 Basic starter site with responsive breakpoints, using a modified Twitter Bootstrap grid
 
@@ -8,9 +8,20 @@ Updated to the Bootstrap 3 grid. Read the [documentation](http://getbootstrap.co
 
 ## Breakpoint variables
 
-This system is mobile first, so all styles without media queries work from mobile up. For larger screens, the following mixins are used.
+There are two sets or breakpoints to use based on need
 
-+ break(tablet)
-+ break(desktop)
-+ break(lg-desktop)
-+ break(hdpi)
+### Mobile First
+
++ breakFirst(medium)
++ breakFirst(large)
++ breakFirst(wide)
++ breakFirst(xxx) - Uses min-width to the custom pixel size
+
+### Set breakpoints, with desktop first
+
++ break(small)
++ break(medium)
++ break(mediumLand)
++ break(mediumPort)
++ break(wide)
++ break(xxx) - Uses min-width to the custom pixel size
