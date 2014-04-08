@@ -1,0 +1,22 @@
+{
+  "name": "starter-site-sass",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "~3.6.0",
+    "gulp-ruby-sass": "~0.4.1",
+    "gulp-uncss": "~0.4.2",
+    "gulp-autoprefixer": "0.0.7",
+    "gulp-imagemin": "~0.2.0",
+    "gulp-clean": "~0.2.4",
+    "gulp-notify": "~1.2.5",
+    "gulp-rename": "~1.2.0",
+    "gulp-concat": "~2.2.0",
+    "gulp-uglify": "~0.2.1",
+    "gulp-cache": "~0.1.3",
+    "gulp-minify-css": "~0.3.0",
+    "gulp-htmlmin": "~0.1.2"
+  }
+}

@@ -42,12 +42,12 @@ p, ul {
 
 // No transitions while loading
 .loading * {
-  @include transition(none);
+  transition: none;
 }
 
 // Transition placeholder
 %trans {
-  @include transition(all 0.4s $pageTrans);
+  transition: all 0.4s $pageTrans;
 }
 
 // Hide the text and show an image

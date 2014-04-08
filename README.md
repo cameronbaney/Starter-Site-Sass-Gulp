@@ -1,8 +1,26 @@
 # Responsive Starter Site with Sass
 
-Basic starter site with responsive breakpoints, using a modified Twitter Bootstrap grid
+Starter skeleton with responsive breakpoints, using a modified Twitter Bootstrap grid and Gulp for optimization
 
 ## Changelog
+
+### Version 3.0
+
++ Removed Bourbon mixin library
++ Added Gulp
++ Added Gulp Plugins
+    + Sass
+    + UnCSS
+    + Autoprefixer
+    + Imagemin
+    + Clean
+    + Notify
+    + Rename
+    + Concat
+    + Uglify
+    + Cache
+    + Minify CSS
+    + HTML Min
 
 ### Version 2.1
 
