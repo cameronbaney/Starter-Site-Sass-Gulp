@@ -71,9 +71,29 @@ gulp.task('clean', function() {
     .pipe(clean());
 });
 
+// Copy files to dist
+gulp.task('copyTask', function() {
+  // Favicon
+  gulp.src('src/**/*.ico')
+    .pipe(gulp.dest('dist/'));
+
+  // Fonts
+  gulp.src('src/font/**/*')
+    .pipe(gulp.dest('dist/font'));
+
+  // .htaccess
+  gulp.src('src/.htaccess')
+    .pipe(gulp.dest('dist/'));
+});
+
 // Default Tasks
 gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'scripts-plugin', 'images', 'minify');
+    gulp.start('styles', 'scripts', 'scripts-plugin', 'images', 'minify', 'copyTask');
+});
+
+// Copy Tasks
+gulp.task('copy', function() {
+    gulp.start('copyTask');
 });
 
 // Watch tasks
