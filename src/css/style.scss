@@ -1,10 +1,6 @@
-@import '_reset.scss';
-@import '_variables.scss';
-@import '_mixins.scss';
-@import '_grid.scss';
+@import '_reset';
+@import '_variables';
+@import '_mixins';
+@import '_grid';
 
-@import '_format.scss';
-
-body {
-	background: #f00;
-}
+@import '_format';
