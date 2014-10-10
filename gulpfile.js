@@ -10,11 +10,24 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     htmlmin = require('gulp-htmlmin'),
+    plumber = require('gulp-plumber'),
     notify = require('gulp-notify');
+
+// Handle the error
+var onError = function(err) {
+    notify.onError({
+        title:    "Gulp",
+        subtitle: "Failure!",
+        message:  "Error: <%= error.message %>",
+        sound:    "Beep"
+    })(err);
+    this.emit('end');
+};
 
 // CSS
 gulp.task('styles', function() {
   return gulp.src('src/css/style.scss')
+    .pipe(plumber({errorHandler: onError}))
     .pipe(sass({ style: 'expanded' }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'ios 6', 'android 4'))
     .pipe(gulp.dest('dist/css'))
@@ -31,6 +44,7 @@ gulp.task('styles', function() {
 // JS - custom scripts
 gulp.task('scripts', function() {
   return gulp.src('src/js/*.js')
+    .pipe(plumber({errorHandler: onError}))
     .pipe(concat('scripts.js'))
     .pipe(gulp.dest('dist/js'))
     .pipe(rename({suffix: '.min'}))
@@ -42,6 +56,7 @@ gulp.task('scripts', function() {
 // JS - plugins
 gulp.task('scripts-plugin', function() {
   return gulp.src('src/js/plugins/*.js')
+    .pipe(plumber({errorHandler: onError}))
     .pipe(concat('plugins.js'))
     .pipe(gulp.dest('dist/js'))
     .pipe(rename({suffix: '.min'}))
@@ -52,17 +67,23 @@ gulp.task('scripts-plugin', function() {
 
 // Images
 gulp.task('images', function() {
-  return gulp.src('src/img/**/*')
-    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('dist/img'))
-    .pipe(notify({ message: 'Images task complete' }));
+ return gulp.src('src/img/**/*')
+   .pipe(plumber({errorHandler: onError}))
+   .pipe(imagemin({
+     progressive: true,
+     svgoPlugins: [{removeViewBox: false, cleanupIDs: true}]
+   }))
+   .pipe(gulp.dest('dist/img'))
+   .pipe(notify({ message: 'Image Task Completed: <%= file.relative %>' }));
 });
 
 // Minify HTML
 gulp.task('minify', function() {
   return gulp.src('src/**/*.html')
+    .pipe(plumber({errorHandler: onError}))
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest('dist'))
+    .pipe(notify({ message: 'HTML minify task complete' }));
 });
 
 // Clean dist folder
@@ -110,5 +131,8 @@ gulp.task('watch', function() {
 
   // Watch image files
   gulp.watch('src/img/**/*', ['images']);
+
+  // Watch minify files
+  gulp.watch('src/**/*.html', ['minify']);
 
 });
