@@ -4,6 +4,16 @@ Starter skeleton with responsive breakpoints, using a modified Twitter Bootstrap
 
 ## Changelog
 
+### Version 3.1
+
++ Added base styles
+    + centerVert
+    + centerVertLarge
+    + centerVertAll
+    + .resp-break
++ Added @trans(prop) mixin
++ Reworked Gulp process
+
 ### Version 3.0
 
 + Removed Bourbon mixin library
