@@ -40,14 +40,15 @@ p, ul {
   margin: 0 0 $baseLineHeight / 2;
 }
 
-// No transitions while loading
-.loading * {
-  transition: none;
-}
-
 // Transition placeholder
 %trans {
   transition: all 0.4s $pageTrans;
+}
+
+.resp-break {
+  @include breakFirst(large){
+    display: block;
+  }
 }
 
 // Hide the text and show an image
@@ -55,6 +56,47 @@ p, ul {
   display: block;
   overflow: hidden;
   text-indent: -9999px;
+}
+
+%centerVert, .center-vert {
+  @include breakFirst(medium){
+    backface-visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .no-csstransforms & {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+}
+%centerVertLarge, .center-vert-large {
+  @include breakFirst(large){
+    backface-visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .no-csstransforms & {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+}
+%centerVertAll, .center-vert-all {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .no-csstransforms & {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
 }
 
 // Hide only visually, but have it available for screenreaders: h5bp.com

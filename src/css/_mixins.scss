@@ -22,6 +22,12 @@
   }
 }
 
+// TRANSITIONS
+// --------------------------------------------------
+@mixin trans($property){
+  transition: $property 0.5s $cbTrans;
+}
+
 // Grid System
 // -----------
 
