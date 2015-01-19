@@ -9,9 +9,9 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    htmlmin = require('gulp-htmlmin'),
     plumber = require('gulp-plumber'),
-    notify = require('gulp-notify');
+    notify = require('gulp-notify'),
+    pngcrush = require('imagemin-pngcrush');
 
 // Handle the error
 var onError = function(err) {
@@ -32,9 +32,6 @@ gulp.task('styles', function() {
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'ios 6', 'android 4'))
     .pipe(gulp.dest('dist/css'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(uncss({
-        html: ['src/index.html']
-    }))
     .pipe(gulp.dest('dist/css'))
     .pipe(minifycss())
     .pipe(gulp.dest('dist/css'))
@@ -67,24 +64,23 @@ gulp.task('scripts-plugin', function() {
 
 // Images
 gulp.task('images', function() {
- return gulp.src('src/img/**/*')
-   .pipe(plumber({errorHandler: onError}))
-   .pipe(imagemin({
-     progressive: true,
-     svgoPlugins: [{removeViewBox: false, cleanupIDs: true}]
-   }))
-   .pipe(gulp.dest('dist/img'))
-   .pipe(notify({ message: 'Image Task Completed: <%= file.relative %>' }));
+  return gulp.src('src/img/**/*')
+    .pipe(plumber({errorHandler: onError}))
+    .pipe(imagemin({
+      progressive: true,
+      svgoPlugins: [{removeViewBox: false, cleanupIDs: true}]
+    }))
+    .pipe(gulp.dest('dist/img'))
+    .pipe(notify({ message: 'Images task complete' }));
 });
 
 // Minify HTML
-gulp.task('minify', function() {
-  return gulp.src('src/**/*.html')
-    .pipe(plumber({errorHandler: onError}))
-    .pipe(htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest('dist'))
-    .pipe(notify({ message: 'HTML minify task complete' }));
-});
+// gulp.task('minify', function() {
+//   return gulp.src('src/**/*.html')
+//     .pipe(plumber({errorHandler: onError}))
+//     .pipe(htmlmin({collapseWhitespace: true}))
+//     .pipe(gulp.dest('dist'))
+// });
 
 // Clean dist folder
 gulp.task('clean', function() {
@@ -105,11 +101,31 @@ gulp.task('copyTask', function() {
   // .htaccess
   gulp.src('src/.htaccess')
     .pipe(gulp.dest('dist/'));
+
+  // downloads
+  gulp.src('src/downloads/**/*')
+    .pipe(gulp.dest('dist/downloads'));
+
+  // videos
+  gulp.src('src/video/**/*')
+    .pipe(gulp.dest('dist/video'));
+
+  // JS library
+  gulp.src('src/js/lib/**/*')
+    .pipe(gulp.dest('dist/js/lib'));
+
+  // PHP
+  gulp.src('src/**/*.php')
+    .pipe(gulp.dest('dist'));
+
+  // PHP
+  gulp.src('src/img/**/*')
+    .pipe(gulp.dest('dist/img'));
 });
 
 // Default Tasks
 gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'scripts-plugin', 'images', 'minify', 'copyTask');
+    gulp.start('styles', 'scripts', 'scripts-plugin', 'copyTask');
 });
 
 // Copy Tasks
@@ -130,9 +146,9 @@ gulp.task('watch', function() {
   gulp.watch('src/js/plugins/*.js', ['scripts-plugin']);
 
   // Watch image files
-  gulp.watch('src/img/**/*', ['images']);
+  gulp.watch('src/img/**/*', ['copyTask']);
 
-  // Watch minify files
-  gulp.watch('src/**/*.html', ['minify']);
+  // Compress HTML
+  gulp.watch('src/**/*.php', ['copyTask']);;
 
 });
