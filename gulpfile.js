@@ -4,14 +4,12 @@ var gulp = require('gulp'),
     uncss = require('gulp-uncss'),
     minifycss = require('gulp-minify-css'),
     rename = require('gulp-rename'),
-    imagemin = require('gulp-imagemin'),
     clean = require('gulp-clean'),
     cache = require('gulp-cache'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     plumber = require('gulp-plumber'),
-    notify = require('gulp-notify'),
-    pngcrush = require('imagemin-pngcrush');
+    notify = require('gulp-notify');
 
 // Handle the error
 var onError = function(err) {
@@ -26,9 +24,8 @@ var onError = function(err) {
 
 // CSS
 gulp.task('styles', function() {
-  return gulp.src('src/css/style.scss')
+  return sass('src/css/style.scss')
     .pipe(plumber({errorHandler: onError}))
-    .pipe(sass({ style: 'expanded' }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'ios 6', 'android 4'))
     .pipe(gulp.dest('dist/css'))
     .pipe(rename({suffix: '.min'}))
@@ -61,26 +58,6 @@ gulp.task('scripts-plugin', function() {
     .pipe(gulp.dest('dist/js'))
     .pipe(notify({ message: 'Plugins task complete' }));
 });
-
-// Images
-gulp.task('images', function() {
-  return gulp.src('src/img/**/*')
-    .pipe(plumber({errorHandler: onError}))
-    .pipe(imagemin({
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false, cleanupIDs: true}]
-    }))
-    .pipe(gulp.dest('dist/img'))
-    .pipe(notify({ message: 'Images task complete' }));
-});
-
-// Minify HTML
-// gulp.task('minify', function() {
-//   return gulp.src('src/**/*.html')
-//     .pipe(plumber({errorHandler: onError}))
-//     .pipe(htmlmin({collapseWhitespace: true}))
-//     .pipe(gulp.dest('dist'))
-// });
 
 // Clean dist folder
 gulp.task('clean', function() {
