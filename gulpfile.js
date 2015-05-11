@@ -1,113 +1,66 @@
 var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     autoprefixer = require('gulp-autoprefixer'),
-    uncss = require('gulp-uncss'),
     minifycss = require('gulp-minify-css'),
     rename = require('gulp-rename'),
     clean = require('gulp-clean'),
     cache = require('gulp-cache'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    plumber = require('gulp-plumber'),
     notify = require('gulp-notify');
-
-// Handle the error
-var onError = function(err) {
-    notify.onError({
-        title:    "Gulp",
-        subtitle: "Failure!",
-        message:  "Error: <%= error.message %>",
-        sound:    "Beep"
-    })(err);
-    this.emit('end');
-};
 
 // CSS
 gulp.task('styles', function() {
   return sass('src/css/style.scss')
-    .pipe(plumber({errorHandler: onError}))
-    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'ios 6', 'android 4'))
-    .pipe(gulp.dest('dist/css'))
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions', 'safari 6', 'ie 9', 'ios 6', 'android 4']
+    }))
+    .pipe(gulp.dest('css'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('dist/css'))
+    .pipe(gulp.dest('css'))
     .pipe(minifycss())
-    .pipe(gulp.dest('dist/css'))
+    .pipe(gulp.dest('css'))
     .pipe(notify({ message: 'Styles task complete' }));
 });
 
 // JS - custom scripts
 gulp.task('scripts', function() {
-  return gulp.src('src/js/*.js')
-    .pipe(plumber({errorHandler: onError}))
+  return gulp.src('src/js/scripts.js')
     .pipe(concat('scripts.js'))
-    .pipe(gulp.dest('dist/js'))
+    .pipe(gulp.dest('js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
-    .pipe(gulp.dest('dist/js'))
+    .pipe(gulp.dest('js'))
     .pipe(notify({ message: 'Scripts task complete' }));
 });
 
 // JS - plugins
 gulp.task('scripts-plugin', function() {
   return gulp.src('src/js/plugins/*.js')
-    .pipe(plumber({errorHandler: onError}))
     .pipe(concat('plugins.js'))
-    .pipe(gulp.dest('dist/js'))
+    .pipe(gulp.dest('js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
-    .pipe(gulp.dest('dist/js'))
+    .pipe(gulp.dest('js'))
     .pipe(notify({ message: 'Plugins task complete' }));
 });
 
 // Clean dist folder
 gulp.task('clean', function() {
-  return gulp.src(['dist/css', 'dist/js', 'dist/img'], {read: false})
+  return gulp.src(['css', 'js'], {read: false})
     .pipe(clean());
 });
 
 // Copy files to dist
 gulp.task('copyTask', function() {
-  // Favicon
-  gulp.src('src/**/*.ico')
-    .pipe(gulp.dest('dist/'));
-
-  // Fonts
-  gulp.src('src/font/**/*')
-    .pipe(gulp.dest('dist/font'));
-
-  // .htaccess
-  gulp.src('src/.htaccess')
-    .pipe(gulp.dest('dist/'));
-
-  // downloads
-  gulp.src('src/downloads/**/*')
-    .pipe(gulp.dest('dist/downloads'));
-
-  // videos
-  gulp.src('src/video/**/*')
-    .pipe(gulp.dest('dist/video'));
-
   // JS library
   gulp.src('src/js/lib/**/*')
-    .pipe(gulp.dest('dist/js/lib'));
-
-  // PHP
-  gulp.src('src/**/*.php')
-    .pipe(gulp.dest('dist'));
-
-  // PHP
-  gulp.src('src/img/**/*')
-    .pipe(gulp.dest('dist/img'));
+    .pipe(gulp.dest('js/lib'));
 });
 
 // Default Tasks
 gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'scripts-plugin', 'copyTask');
-});
-
-// Copy Tasks
-gulp.task('copy', function() {
-    gulp.start('copyTask');
+    gulp.start('styles', 'scripts', 'scripts-plugin');
 });
 
 // Watch tasks
@@ -117,15 +70,8 @@ gulp.task('watch', function() {
   gulp.watch('src/css/**/*.scss', ['styles']);
 
   // Watch .js files
-  gulp.watch('src/js/*.js', ['scripts']);
+  gulp.watch('src/js/scripts.js', ['scripts']);
 
   // Watch plugin .js files
   gulp.watch('src/js/plugins/*.js', ['scripts-plugin']);
-
-  // Watch image files
-  gulp.watch('src/img/**/*', ['copyTask']);
-
-  // Compress HTML
-  gulp.watch('src/**/*.php', ['copyTask']);;
-
 });
