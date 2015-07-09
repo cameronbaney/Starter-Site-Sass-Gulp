@@ -7,7 +7,27 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    notify = require('gulp-notify');
+    notify = require('gulp-notify'),
+    svgSprite = require('gulp-svg-sprite');
+
+// SVG Sprites
+gulp.task('svg-sprite', function() {
+  return gulp.src('src/svg/*.svg')
+    .pipe(plumber())
+    .pipe(svgSprite({
+      mode: {
+        symbol: {
+          dest: '',
+          prefix: '',
+          sprite: 'spritemap'
+        }
+      }
+    }))
+    .on('error', function(error){
+        /* Do some awesome error handling ... */
+    })
+    .pipe(gulp.dest('dist/img'));
+});
 
 // CSS
 gulp.task('styles', function() {
@@ -74,4 +94,7 @@ gulp.task('watch', function() {
 
   // Watch plugin .js files
   gulp.watch('src/js/plugins/*.js', ['scripts-plugin']);
+
+  // SVG files for spritemap
+  gulp.watch('src/svg/*.svg', ['svg-sprite']);;
 });
