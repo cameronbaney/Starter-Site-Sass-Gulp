@@ -1,4 +1,4 @@
-# Responsive Starter Site with Sass
+# Responsive Starter Site with Sass, Gulp and Sourcemaps
 
 Starter skeleton with responsive breakpoints, using a modified Twitter Bootstrap grid and Gulp for optimization
 
