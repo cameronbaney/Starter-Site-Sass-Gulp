@@ -18,36 +18,49 @@ em      { font-style: italic; }
 cite    { font-style: normal; }
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 ($baseLineHeight / 2);
+  color: $headingsColor;
   font-family: $headingsFontFamily;
   font-weight: $headingsFontWeight;
-  line-height: $baseLineHeight;
-  color: $headingsColor;
-  text-rendering: optimizelegibility; // Fix the character spacing for headings
+  margin: 0 0 40px;
+  line-height: 1.2;
+  text-rendering: optimizelegibility;
 }
-h1,
-h2,
-h3 { line-height: $baseLineHeight * 2; }
 
-h1 { font-size: $baseFontSize * 2.75; } // ~38px
-h2 { font-size: $baseFontSize * 2.25; } // ~32px
-h3 { font-size: $baseFontSize * 1.75; } // ~24px
-h4 { font-size: $baseFontSize * 1.25; } // ~18px
-h5 { font-size: $baseFontSize; }
-h6 { font-size: $baseFontSize * 0.85; } // ~12px
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 18px;
+}
+h4 {
+  font-size: 16px;
+}
+h5 {
+  font-size: 15px;
+}
+h6 {
+  font-size: 14px;
+}
 
 p, ul {
-  margin: 0 0 $baseLineHeight / 2;
-}
-
-// Transition placeholder
-%trans {
-  transition: all 0.4s $pageTrans;
+  margin: 0 0 20px;
 }
 
 .resp-break {
   @include breakFirst(large){
     display: block;
+  }
+}
+
+.icon-svg {
+  display: inline-block;
+  svg {
+    display: block;
+    height: 100%;
+    width: 100%;
   }
 }
 
