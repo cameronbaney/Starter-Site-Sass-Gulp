@@ -2,7 +2,7 @@
 
 Starter skeleton with responsive breakpoints, using a modified Twitter Bootstrap grid and Gulp for optimization
 
-## Dependences
+## Dependencies
 + Node.js
 
 ## Install using NPM
