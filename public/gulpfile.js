@@ -64,7 +64,7 @@ gulp.task('default', ['copyTask', 'styles', 'scripts', 'svg-sprite','scripts-plu
 gulp.task('watch', function() {
 
   // Watch .scss files
-  gulp.watch('./src/css/**/*.scss', ['styles']);
+  gulp.watch('src/css/**/*.scss', ['styles']);
 
   // Watch scripts.js files
   gulp.watch('./src/js/scripts.js', ['scripts']);
