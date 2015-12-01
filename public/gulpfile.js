@@ -67,14 +67,14 @@ gulp.task('watch', function() {
   gulp.watch('src/css/**/*.scss', ['styles']);
 
   // Watch scripts.js files
-  gulp.watch('./src/js/scripts.js', ['scripts']);
+  gulp.watch('src/js/scripts.js', ['scripts']);
 
   // Watch plugin .js files
-  gulp.watch('./src/js/plugins/*.js', ['scripts-plugin']);
+  gulp.watch('src/js/plugins/*.js', ['scripts-plugin']);
 
   // Watch for .js library files
-  gulp.watch('./src/js/lib/*.js', ['copyTask']);
+  gulp.watch('src/js/lib/*.js', ['copyTask']);
 
   // SVG files for spritemap
-  gulp.watch('./src/svg/*.svg', ['svg-sprite']);;
+  gulp.watch('src/svg/*.svg', ['svg-sprite']);;
 });
