@@ -3,7 +3,8 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     autoprefixer = require('gulp-autoprefixer'),
     concat = require('gulp-concat'),
-    svgSprite = require('gulp-svg-sprite');
+    svgSprite = require('gulp-svg-sprite'),
+    minify = require('gulp-minify');
 
 // SVG Sprites
 gulp.task('svg-sprite', function() {
@@ -37,7 +38,8 @@ gulp.task('scripts', function() {
   return gulp.src('./src/js/scripts.js')
     .pipe(sourcemaps.init())
       .pipe(concat('scripts.js'))
-    .pipe(sourcemaps.write('./maps'))
+      .pipe(minify())
+    .pipe(sourcemaps.write('./js/maps'))
     .pipe(gulp.dest('./js'));
 });
 
@@ -46,7 +48,8 @@ gulp.task('scripts-plugin', function() {
   return gulp.src('./src/js/plugins/*.js')
     .pipe(sourcemaps.init())
       .pipe(concat('plugins.js'))
-    .pipe(sourcemaps.write('./maps'))
+      .pipe(minify())
+    .pipe(sourcemaps.write('./js/maps'))
     .pipe(gulp.dest('./js'));
 });
 
