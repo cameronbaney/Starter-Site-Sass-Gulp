@@ -79,5 +79,5 @@ gulp.task('watch', function() {
   gulp.watch('src/js/lib/*.js', ['scripts-lib']);
 
   // SVG files for spritemap
-  gulp.watch('src/svg/*.svg', ['svg-sprite']);;
+  gulp.watch('src/svg/*.svg', ['svg-sprite']);
 });
