@@ -53,15 +53,15 @@ gulp.task('scripts-plugin', function() {
     .pipe(gulp.dest('./js'));
 });
 
-// Copy files to dist
-gulp.task('copyTask', function() {
-  // JS library
+// JS - library files
+// Copy these files from /src/js/lib to /js/lib to maintain full file
+gulp.task('scripts-lib', function() {
   gulp.src('./src/js/lib/**/*')
     .pipe(gulp.dest('./js/lib'));
 });
 
 // Default Tasks
-gulp.task('default', ['copyTask', 'styles', 'scripts', 'svg-sprite','scripts-plugin']);
+gulp.task('default', ['scripts-lib', 'styles', 'scripts', 'svg-sprite','scripts-plugin']);
 
 // Watch tasks
 gulp.task('watch', function() {
@@ -76,7 +76,7 @@ gulp.task('watch', function() {
   gulp.watch('src/js/plugins/*.js', ['scripts-plugin']);
 
   // Watch for .js library files
-  gulp.watch('src/js/lib/*.js', ['copyTask']);
+  gulp.watch('src/js/lib/*.js', ['scripts-lib']);
 
   // SVG files for spritemap
   gulp.watch('src/svg/*.svg', ['svg-sprite']);;
