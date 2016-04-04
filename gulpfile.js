@@ -1,15 +1,10 @@
 var gulp = require('gulp'),
-    sass = require('gulp-sass'),
-    sourcemaps = require('gulp-sourcemaps'),
-    autoprefixer = require('gulp-autoprefixer'),
-    concat = require('gulp-concat'),
-    svgSprite = require('gulp-svg-sprite'),
-    minify = require('gulp-minify');
+    plugins = require('gulp-load-plugins')();
 
 // SVG Sprites
 gulp.task('svg-sprite', function() {
   return gulp.src('./public/src/svg/*.svg')
-    .pipe(svgSprite({
+    .pipe(plugins.svgSprite({
       mode: {
         symbol: {
           dest: '',
@@ -24,32 +19,32 @@ gulp.task('svg-sprite', function() {
 // CSS
 gulp.task('styles', function () {
   return gulp.src('./public/src/css/*.scss')
-    .pipe(sourcemaps.init())
-      .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-      .pipe(autoprefixer({
+    .pipe(plugins.sourcemaps.init())
+      .pipe(plugins.sass({outputStyle: 'compressed'}).on('error', plugins.sass.logError))
+      .pipe(plugins.autoprefixer({
           browsers: ['last 2 versions', 'safari 6', 'ie 9', 'ios 7', 'android 4']
         }))
-    .pipe(sourcemaps.write('./maps'))
+    .pipe(plugins.sourcemaps.write('./maps'))
     .pipe(gulp.dest('./public/css'));
 });
 
 // JS - custom scripts
 gulp.task('scripts', function() {
   return gulp.src('./public/src/js/scripts.js')
-    .pipe(sourcemaps.init())
-      .pipe(concat('scripts.js'))
-      .pipe(minify())
-    .pipe(sourcemaps.write('./maps'))
+    .pipe(plugins.sourcemaps.init())
+      .pipe(plugins.concat('scripts.js'))
+      .pipe(plugins.minify())
+    .pipe(plugins.sourcemaps.write('./maps'))
     .pipe(gulp.dest('./public/js'));
 });
 
 // JS - plugins
 gulp.task('scripts-plugin', function() {
   return gulp.src('./public/src/js/plugins/*.js')
-    .pipe(sourcemaps.init())
-      .pipe(concat('plugins.js'))
-      .pipe(minify())
-    .pipe(sourcemaps.write('./maps'))
+    .pipe(plugins.sourcemaps.init())
+      .pipe(plugins.concat('plugins.js'))
+      .pipe(plugins.minify())
+    .pipe(plugins.sourcemaps.write('./maps'))
     .pipe(gulp.dest('./public/js'));
 });
 
