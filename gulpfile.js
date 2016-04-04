@@ -8,7 +8,7 @@ var gulp = require('gulp'),
 
 // SVG Sprites
 gulp.task('svg-sprite', function() {
-  return gulp.src('./src/svg/*.svg')
+  return gulp.src('./public/src/svg/*.svg')
     .pipe(svgSprite({
       mode: {
         symbol: {
@@ -18,46 +18,46 @@ gulp.task('svg-sprite', function() {
         }
       }
     }))
-    .pipe(gulp.dest('./img'));
+    .pipe(gulp.dest('./public/img'));
 });
 
 // CSS
 gulp.task('styles', function () {
-  return gulp.src('./src/css/*.scss')
+  return gulp.src('./public/src/css/*.scss')
     .pipe(sourcemaps.init())
       .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
       .pipe(autoprefixer({
           browsers: ['last 2 versions', 'safari 6', 'ie 9', 'ios 7', 'android 4']
         }))
     .pipe(sourcemaps.write('./maps'))
-    .pipe(gulp.dest('./css'));
+    .pipe(gulp.dest('./public/css'));
 });
 
 // JS - custom scripts
 gulp.task('scripts', function() {
-  return gulp.src('./src/js/scripts.js')
+  return gulp.src('./public/src/js/scripts.js')
     .pipe(sourcemaps.init())
       .pipe(concat('scripts.js'))
       .pipe(minify())
-    .pipe(sourcemaps.write('./js/maps'))
-    .pipe(gulp.dest('./js'));
+    .pipe(sourcemaps.write('./maps'))
+    .pipe(gulp.dest('./public/js'));
 });
 
 // JS - plugins
 gulp.task('scripts-plugin', function() {
-  return gulp.src('./src/js/plugins/*.js')
+  return gulp.src('./public/src/js/plugins/*.js')
     .pipe(sourcemaps.init())
       .pipe(concat('plugins.js'))
       .pipe(minify())
-    .pipe(sourcemaps.write('./js/maps'))
-    .pipe(gulp.dest('./js'));
+    .pipe(sourcemaps.write('./maps'))
+    .pipe(gulp.dest('./public/js'));
 });
 
 // JS - library files
 // Copy these files from /src/js/lib to /js/lib to maintain full file
 gulp.task('scripts-lib', function() {
-  gulp.src('./src/js/lib/**/*')
-    .pipe(gulp.dest('./js/lib'));
+  gulp.src('./public/src/js/lib/**/*')
+    .pipe(gulp.dest('./public/js/lib'));
 });
 
 // Default Tasks
@@ -67,17 +67,17 @@ gulp.task('default', ['scripts-lib', 'styles', 'scripts', 'svg-sprite','scripts-
 gulp.task('watch', function() {
 
   // Watch .scss files
-  gulp.watch('src/css/**/*.scss', ['styles']);
+  gulp.watch('public/src/css/**/*.scss', ['styles']);
 
   // Watch scripts.js files
-  gulp.watch('src/js/scripts.js', ['scripts']);
+  gulp.watch('public/src/js/scripts.js', ['scripts']);
 
   // Watch plugin .js files
-  gulp.watch('src/js/plugins/*.js', ['scripts-plugin']);
+  gulp.watch('public/src/js/plugins/*.js', ['scripts-plugin']);
 
   // Watch for .js library files
-  gulp.watch('src/js/lib/*.js', ['scripts-lib']);
+  gulp.watch('public/src/js/lib/*.js', ['scripts-lib']);
 
   // SVG files for spritemap
-  gulp.watch('src/svg/**/*.svg', ['svg-sprite']);
+  gulp.watch('public/src/svg/**/*.svg', ['svg-sprite']);
 });
